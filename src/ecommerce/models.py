@@ -21,7 +21,9 @@ class Client(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=15)
     description = models.TextField()
+    image = models.ImageField(null=True)
     created_at = models.DateField()
+
 
 
 
