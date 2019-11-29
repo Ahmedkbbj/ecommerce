@@ -8,7 +8,7 @@ def homeview(request):
     lates_products = lates_products[2] if lates_products.exists() else []
 
     products = Product.objects.exclude(pk__in=[item.pk for item in lates_products]) 
-    products = products[7] if products.exists() else Product.objects.all()[7]
+    products = products[7] if products.exists() else Product.objects.all()
 
     
 
