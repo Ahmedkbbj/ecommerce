@@ -23,8 +23,9 @@ class Category(models.Model):
     description = models.TextField()
 
 class Product(models.Model):
-    name = models.CharField(max_length=15)
+    name = models.CharField(max_length=50)
     description = models.TextField()
+    price = models.FloatField(null=True)
     image = models.ImageField(null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     created_at = models.DateField()
