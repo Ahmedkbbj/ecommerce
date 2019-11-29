@@ -15,7 +15,7 @@ class Client(models.Model):
     city = models.CharField(max_length=50)
     age = models.PositiveIntegerField()
     gender = models.CharField(max_length=1, choices=GENDER)
-
+    created_at = models.DateField()
 
 
 class Product(models.Model):
