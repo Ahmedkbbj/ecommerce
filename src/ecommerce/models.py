@@ -18,11 +18,18 @@ class Client(models.Model):
     created_at = models.DateField()
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField()
+
 class Product(models.Model):
     name = models.CharField(max_length=15)
     description = models.TextField()
     image = models.ImageField(null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     created_at = models.DateField()
+
+
 
 
 
