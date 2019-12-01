@@ -3,7 +3,6 @@
 {% load static %}
 {% block content %}
 
-  
     
   <main class="site-main">
     
@@ -29,22 +28,7 @@
     </section>
     <!--================ Hero banner start =================-->
 
-    <!--================ Hero Carousel start =================-->
-    <section class="section-margin mt-0">
-      <div class="owl-carousel owl-theme hero-carousel">
-        {% for product in last_products %}
-        <div class="hero-carousel__slide">
-          <img src="{{ product.image.url }}" alt="" class="img-fluid">
-          <a href="{{ product.get_absolute_url }}" class="hero-carousel__slideOverlay">
-            <h3>{{ product.name }} </h3>
-            <p></p>
-            <p>{{ product.category.name }} <strong style="color:lightgreen">$ {{ product.price }}</strong> </p>
-          </a>
-        </div>
-        {% endfor %}
-      </div>
-    </section>
-    <!--================ Hero Carousel end =================-->
+
 
     <!-- ================ trending product section start ================= -->  
     <section class="section-margin calc-60px">
@@ -54,7 +38,7 @@
           <h2>Trending <span class="section-intro__style">Product</span></h2>
         </div>
         <div class="row"> 
-          {% for product in best_products %}
+          {% for product in products %}
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
@@ -73,58 +57,36 @@
             
           </div>
           {% endfor %}
+
+         
         </div>
+        
+
+        {% if products.has_other_pages %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pg-blue">
+                <li class="page-item  {% if not products.has_previous %} disabled {% endif %}">
+                <a class="page-link" href="{% if products.has_previous %}?page={{ products.previous_page_number }}{% endif %}" tabindex="-1">Previous</a>
+                </li>
+                {% for i in products.paginator.page_range %}
+                <li class="page-item {% if products.number == i %} active {% endif %}">
+                <a class="page-link" href="?page={{ i }}">{{ i }} <span class="sr-only">(current)</span></a>
+                </li>
+                {% endfor %}
+                <li class="page-item {% if not products.has_next %} disabled {% endif %}">
+                <a class="page-link" {% if products.has_next %} href="?page={{ products.next_page_number }}" {% endif %}>Next</a>
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
+
       </div>
     </section>
+
+    
     <!-- ================ trending product section end ================= -->  
 
 
-    <!-- ================ offer section start ================= --> 
-    <section class="offer" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-5">
-            <div class="offer__content text-center">
-              <h3>Up To 50% Off</h3>
-              <h4>Winter Sale</h4>
-              <p>Him she'd let them sixth saw light</p>
-              <a class="button button--active mt-3 mt-xl-4" href="#">Shop Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- ================ offer section end ================= --> 
-
-    <!-- ================ Best Selling item  carousel ================= --> 
-    <section class="section-margin calc-60px">
-      <div class="container">
-        <div class="section-intro pb-60px">
-          <p>Popular Item in the market</p>
-          <h2>Best <span class="section-intro__style">Sellers</span></h2>
-        </div>
-        <div class="owl-carousel owl-theme" id="bestSellerCarousel">
-          {% for product in featured_products %}
-          <div class="card text-center card-product">
-            <div class="card-product__img">
-              <img class="img-fluid" src="{{ product.image.url }}" alt="">
-              <ul class="card-product__imgOverlay">
-                <li><button><i class="ti-search"></i></button></li>
-                <li><button><i class="ti-heart"></i></button></li>
-              </ul>
-            </div>
-            <div class="card-body">
-              <p>{{ product.category.name }}</p>
-              <h4 class="card-product__title"><a href="single-product.html">{{ product.name }}</a></h4>
-              <p class="card-product__price">${{ product.price }}</p>
-            </div>
-          </div>
-          {% endfor %}
-          
-        </div>
-      </div>
-    </section>
-    <!-- ================ Best Selling item  carousel end ================= --> 
 
 
     <!-- ================ Subscribe section start ================= --> 
@@ -156,9 +118,5 @@
 
   </main>
     
-    
-  <!--================ Start footer Area  =================-->	
 
-  
-  <!--================ End footer Area  =================-->
 {% endblock content %}
