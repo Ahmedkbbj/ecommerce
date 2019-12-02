@@ -36,7 +36,11 @@ class Product(models.Model):
     featured = models.BooleanField(default=False)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     slug = models.CharField(max_length=50, null=True)
-    created_at = models.DateField()
+    width = models.FloatField(null=True,blank=True)
+    height = models.FloatField(null=True,blank=True)
+    depth = models.FloatField(null=True,blank=True)
+    weight = models.FloatField(null=True,blank=True)
+    created_at = models.DateField(null=True,blank=True)
     
     @property
     def nb_order(self):
