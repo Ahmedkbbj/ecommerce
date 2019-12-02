@@ -14,16 +14,22 @@
   <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.theme.default.min.css' %} ">
   <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css' %} ">
 
+
+    <!-- Font Awesome -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"> -->
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+
   <link rel="stylesheet" href="{% static 'css/style.css' %} ">
 </head>
 <body>
 
 
-
+    {% include 'items/header.html' %}
     {% block content %}
       
     {% endblock content %}
-
+    {% include 'items/footer.html' %}
 
   <script src="{% static 'vendors/jquery/jquery-3.2.1.min.js' %} "></script>
   <script src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js' %} "></script>
@@ -32,6 +38,9 @@
   <script src="{% static 'vendors/nice-select/jquery.nice-select.min.js' %} "></script>
   <script src="{% static 'vendors/jquery.ajaxchimp.min.js' %} "></script>
   <script src="{% static 'vendors/mail-script.js' %} "></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+
   <script src="{% static 'js/main.js' %} "></script>
 </body>
 </html>

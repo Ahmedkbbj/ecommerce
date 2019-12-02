@@ -1,4 +1,6 @@
 from django.db import models
+import hashlib 
+from django.urls import reverse
 
 GENDER = (
     ('W','W'),
@@ -18,11 +20,35 @@ class Client(models.Model):
     created_at = models.DateField()
 
 
-class Product(models.Model):
-    name = models.CharField(max_length=15)
+class Category(models.Model):
+    name = models.CharField(max_length=50)
     description = models.TextField()
-    created_at = models.DateField()
+    slug = models.CharField(max_length=50, null=True)
 
+    def get_absolute_url(self):
+        return reverse('products:shop-product', args=[self.name.replace(" ", "-")])
+
+class Product(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField()
+    price = models.FloatField(null=True)
+    image = models.ImageField(null=True)
+    featured = models.BooleanField(default=False)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    slug = models.CharField(max_length=50, null=True)
+    created_at = models.DateField()
+    
+    @property
+    def nb_order(self):
+        number_order = len(Order.objects.filter(product=self))
+        return number_order
+
+    def generate_hash(self):
+        result = hashlib.md5(str(self.pk).encode())
+        return self.name.replace(" ", "-")+"-"+str(result.hexdigest())
+
+    def get_absolute_url(self):
+        return reverse('products:single-product', args=[self.slug])
 
 
 class Galery(models.Model):
@@ -30,7 +56,7 @@ class Galery(models.Model):
     product = models.ForeignKey(Product,on_delete=models.SET_NULL, null=True)
 
 
-class Command(models.Model):
+class Order(models.Model):
 
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
