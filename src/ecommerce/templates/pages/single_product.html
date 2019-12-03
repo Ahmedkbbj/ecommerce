@@ -1,0 +1,325 @@
+{% extends 'base.html' %}
+
+{% load static poll_extras crispy_forms_tags %}
+{% load countries  %}
+
+{% block content %}
+    	<!-- ================ start banner area ================= -->	
+	<section class="blog-banner-area" id="blog">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Shop Single</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Shop Single</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+
+
+  <!--================Single Product Area =================-->
+	<div class="product_image_area">
+		<div class="container">
+			<div class="row s_product_inner">
+				<div class="col-lg-6">
+					<div class="owl-carousel owl-theme s_Product_carousel">
+						<div class="single-prd-item">
+							<img class="img-fluid"  src="" alt="">
+						</div>
+
+						<!-- <div class="single-prd-item">
+							<img class="img-fluid" src="{% static 'img/category/s-p2.jpg' %}" alt="">
+						</div>
+						<div class="single-prd-item">
+							<img class="img-fluid" src="{% static 'img/category/s-p3.jpg' %}" alt="">
+						</div> -->
+					</div>
+					
+				</div>
+				
+				<div class="col-lg-5 offset-lg-1">
+					<div class="s_product_text">
+						<h3>{{product.name}}</h3>
+						<h2>${{product.price}}</h2>
+						<ul class="list">
+							<li><a class="active" href="#"><span>Category</span> : {{product.category.name}}</a></li>
+							<li><a href="#"><span>Availibility</span> : In Stock</a></li>
+						</ul>
+						<p>{{product.description}}.</p>
+						
+							<div class="container mt-2">
+								<div class="row">
+											{% for gallery in product.get_gallery_product %}
+									
+											<div class="col-sm-4 mt-3 my-shadow">
+											  <img class="my-gallery {% if forloop.counter == 1  %} active_img {% endif %}" width="100%" height="100%" src="{{gallery.image.url}}" alt="">
+											</div>
+											
+								
+											
+											{% endfor %}
+											
+								</div>
+							  </div>
+							  <a class="button primary-btn mt-3"   data-toggle="modal" data-target="#exampleModalCenter">call for</a>
+						
+					
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--================End Single Product Area =================-->
+
+	<!--================Product Description Area =================-->
+	<section class="product_description_area">
+		<div class="container">
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+					 aria-selected="false">Specification</a>
+				</li>
+				
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+					<p>
+						{{product.description}}
+					</p>
+				</div>
+				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+					<div class="table-responsive">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td>
+										<h5>Width</h5>
+									</td>
+									<td>
+										<h5>{{product.width}}mm</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Height</h5>
+									</td>
+									<td>
+										<h5>{{product.height}}mm</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Depth</h5>
+									</td>
+									<td>
+										<h5>{{product.depth}}mm</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Weight</h5>
+									</td>
+									<td>
+										<h5>{{product.weight}}gm</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Quality checking</h5>
+									</td>
+									<td>
+										<h5>yes</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Freshness Duration</h5>
+									</td>
+									<td>
+										<h5>03days</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>When packeting</h5>
+									</td>
+									<td>
+										<h5>Without touch of hand</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Each Box contains</h5>
+									</td>
+									<td>
+										<h5>60pcs</h5>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</section>
+	<!--================End Product Description Area =================-->
+
+	<!--================ Start related Product area =================-->  
+	<section class="related-product-area section-margin--small mt-0">
+		<div class="container">
+			<div class="section-intro pb-60px">
+				<p>Popular Item in the market</p>
+				<h2>Top <span class="section-intro__style">Product</span> </h2>
+      		</div>
+			<div class="row mt-30">
+				{% for item1, item2, item3 in top_products %}
+				
+				<div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+					<div class="single-search-product-wrapper">
+						<div class="single-search-product d-flex">
+							<a href="#"><img src="{{item1.image.url}}" alt=""></a>
+							<div class="desc">
+								<a href="#" class="title">{{item1.name}}</a>
+								<div class="price">${{item1.price}}</div>
+							</div>
+						</div>
+						<div class="single-search-product d-flex">
+							<a href="#"><img src="{{item2.image.url}}" alt=""></a>
+							<div class="desc">
+								<a href="#" class="title">{{item2.name}}</a>
+								<div class="price">${{item2.price}}</div>
+							</div>
+						</div>
+						<div class="single-search-product d-flex">
+							<a href="#"><img src="{{item3.image.url}}" alt=""></a>
+							<div class="desc">
+								<a href="#" class="title">{{item3.name}}</a>
+								<div class="price">${{item3.price}}</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				{% endfor %}
+				
+			</div>
+		</div>
+	</section>
+<script src="{% static 'vendors/jquery/jquery-3.2.1.min.js' %} "></script>
+
+<script>
+$(document).ready(function(){
+var img_active = $(this).find(".active_img");
+var img_active_src = img_active.attr("src")
+$('.img-fluid').attr('src',img_active_src) 
+
+});
+
+
+$('.my-gallery').on('click',  function() {
+	var img_active_src = $(this).attr("src")
+	$('.img-fluid').attr('src',img_active_src) 
+});
+  
+  
+
+	
+</script>
+
+
+	  <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<form action="#/" class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">ask for a product</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					{% csrf_token %}
+						<div class="row">
+						  <div class="col-lg-5">
+							<div class="form-group ">{{ form.first_name }}
+								<small id="passwordHelp" class="text-danger">
+									{{from.first_name.errors}}
+								</small>   
+							</div>
+							<div class="form-group">{{ form.last_name }}
+									<small id="passwordHelp" class="text-danger">
+										{{from.last_name.errors}}
+									</small> 
+							</div>
+							<div class="form-group">{{ form.email }}
+									<small id="passwordHelp" class="text-danger">
+										{{from.email.errors}}
+									</small> 
+							</div>
+							<div class="form-group">{{ form.phone }}
+								<small id="passwordHelp" class="text-danger">
+									{{from.phone.errors}}
+								</small>
+							</div>
+							<div class="form-group">
+								{{ form.country }}
+							</div>
+							
+						  </div>
+						  <div class="col-lg-7">
+								
+								<!-- <textarea class="form-control different-control w-100" name="message" id="message" cols="30" rows="5" placeholder="Enter Message"></textarea> -->
+								<div class="form-group">{{ form.adress }}
+										<small id="passwordHelp" class="text-danger">
+											{{from.adress.errors}}
+										</small>
+								</div>
+									<div class="form-group">{{ form.city }}
+										<small id="passwordHelp" class="text-danger">
+											{{from.city.errors}}
+										</small>
+									</div>
+									<div class="form-group">{{ form.age }}
+											<small id="passwordHelp" class="text-danger">
+												{{from.age.errors}}
+											</small>
+									</div>
+									<div class="form-group">{{ form.gender }}
+										<small id="passwordHelp" class="text-danger">
+											{{from.age.errors}}
+										</small>
+									</div>
+						  </div>
+						</div>
+						<div class="form-group text-center text-md-right mt-3">
+						</div>
+					  
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="button button--active button-contactForm">Send Message</button>
+
+				</div>
+			</form>
+				</div>
+			</div>
+		</div>
+	  
+
+
+
+	<!--================ end related Product area =================-->  	
+{% endblock content %}
+    

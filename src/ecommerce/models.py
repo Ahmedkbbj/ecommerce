@@ -1,11 +1,13 @@
 from django.db import models
 import hashlib 
 from django.urls import reverse
-
+from django_countries.fields import CountryField
+from datetime import datetime
 GENDER = (
-    ('W','W'),
-    ('M','M')
-)
+        ('',"Sex"),
+        ('M',"MAN"),
+        ('W',"WOMAN")
+    )
 
 # Create your models here.
 class Client(models.Model):
@@ -13,11 +15,12 @@ class Client(models.Model):
     last_name = models.CharField(max_length=50)
     email = models.EmailField()
     phone = models.CharField(max_length=15)
+    country = CountryField(blank_label='(select country)', null=True)
     adress = models.CharField(max_length=255)
     city = models.CharField(max_length=50)
     age = models.PositiveIntegerField()
     gender = models.CharField(max_length=1, choices=GENDER)
-    created_at = models.DateField()
+    created_at = models.DateField(default=datetime.now())
 
 
 class Category(models.Model):
@@ -53,7 +56,21 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('products:single-product', args=[self.slug])
+    
 
+    def get_gallery_product(self):
+        images = Galery.objects.filter(product=self)
+        return images
+    
+    def len_image_in_gallery(self):
+        return [i for i in range(4 - len(self.get_gallery_product()))]
+    
+
+
+
+
+    def __str__(self):
+        return self.slug
 
 class Galery(models.Model):
     image = models.ImageField()

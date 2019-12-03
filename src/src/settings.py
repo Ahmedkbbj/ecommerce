@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ecommerce'
+    'ecommerce',
+    'django_countries',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -65,6 +67,11 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'ecommerce.context_processors.category_shop',
             ],
+
+        'libraries':{
+            'poll_extras': 'ecommerce.templatetags.poll_extras',
+
+            }
         },
     },
 ]
@@ -128,3 +135,6 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') # 'data' is my media folder
 MEDIA_URL = '/media/'
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
