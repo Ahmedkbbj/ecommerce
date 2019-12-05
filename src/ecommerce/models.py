@@ -18,8 +18,8 @@ class Client(models.Model):
     country = CountryField(blank_label='(select country)', null=True)
     adress = models.CharField(max_length=255)
     city = models.CharField(max_length=50)
-    age = models.PositiveIntegerField()
-    gender = models.CharField(max_length=1, choices=GENDER)
+    age = models.PositiveIntegerField(null=True, blank=True)
+    gender = models.CharField(max_length=1, choices=GENDER, null=True, blank=True)
     created_at = models.DateField(default=datetime.now())
 
 
@@ -29,7 +29,7 @@ class Category(models.Model):
     slug = models.CharField(max_length=50, null=True)
 
     def get_absolute_url(self):
-        return reverse('products:shop-product', args=[self.name.replace(" ", "-")])
+        return reverse('ecommerce:shop-product', args=[self.name.replace(" ", "-")])
 
 class Product(models.Model):
     name = models.CharField(max_length=50)
@@ -55,7 +55,7 @@ class Product(models.Model):
         return self.name.replace(" ", "-")+"-"+str(result.hexdigest())
 
     def get_absolute_url(self):
-        return reverse('products:single-product', args=[self.slug])
+        return reverse('ecommerce:single-product', args=[self.slug])
     
 
     def get_gallery_product(self):
@@ -81,4 +81,6 @@ class Order(models.Model):
 
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    created_at = models.DateField()
+    created_at = models.DateField(default=datetime.now)
+
+

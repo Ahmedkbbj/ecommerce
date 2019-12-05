@@ -1,3 +1,5 @@
+from .models import Product
+
 def pack(_list):
     item = []
     new_list = []
@@ -12,3 +14,12 @@ def pack(_list):
             item = []
             
     return new_list
+
+
+def search_products(search, products):
+    products = products.filter(name__contains=search)
+    if products.exists():
+        return products
+    else:
+        return None
+

@@ -1,31 +1,65 @@
-{% extends 'single_product.html' %}
 
-{% block content_form %}
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+{% load static poll_extras crispy_forms_tags %}
+{% load countries  %}
+
+
+
+
+<div class="row">
+    <div class="col-lg-5">
+        <div class="form-group ">{{ form.first_name }}
+            <small id="passwordHelp" class="text-danger">
+                {{form.first_name.errors}}
+            </small>   
         </div>
-        <div class="modal-body">
-            <form action="">
-            {% csrf_token %}
-            {{  form|crispy }}
-            <button class="btn btn-primary" type="submit">Send</button>
-            </form>
+        <div class="form-group">{{ form.last_name }}
+                <small id="passwordHelp" class="text-danger">
+                    {{form.last_name.errors}}
+                </small> 
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+        <div class="form-group">{{ form.email }}
+                <small id="passwordHelp" class="text-danger">
+                    {{form.email.errors}}
+                </small> 
         </div>
+        <div class="form-group">{{ form.phone }}
+            <small id="passwordHelp" class="text-danger">
+                {{form.phone.errors}}
+            </small>
+        </div>
+        <div class="form-group">
+            {{ form.country }}
+            <small id="passwordHelp" class="text-danger">
+                    {{form.country.errors}}
+                </small>
+        </div>
+    
+    </div>
+    <div class="col-lg-7">
+        
+        <!-- <textarea class="form-control different-control w-100" name="message" id="message" cols="30" rows="5" placeholder="Enter Message"></textarea> -->
+        <div class="form-group">{{ form.adress }}
+                <small id="passwordHelp" class="text-danger">
+                    {{form.adress.errors}}
+                </small>
+        </div>
+        <div class="form-group">{{ form.city }}
+            <small id="passwordHelp" class="text-danger">
+                {{form.city.errors}}
+            </small>
+        </div>
+        <div class="form-group">{{ form.age }}
+                <small id="passwordHelp" class="text-danger">
+                    {{form.age.errors}}
+                </small>
+        </div>
+        <div class="form-group">{{ form.gender }}
+            <small id="passwordHelp" class="text-danger">
+                {{form.age.errors}}
+            </small>
         </div>
     </div>
 </div>
-
-
-{% endblock content_form %}
+<div class="form-group text-center text-md-right mt-3">
+</div>

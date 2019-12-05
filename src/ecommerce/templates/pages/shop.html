@@ -2,8 +2,8 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-
-    
+<link rel="stylesheet" href="{% static 'vendors/nice-select/nice-select.css' %}">
+  
   <main class="site-main">
     
     <!--================ Hero banner start =================-->
@@ -33,52 +33,79 @@
     <!-- ================ trending product section start ================= -->  
     <section class="section-margin calc-60px">
       <div class="container">
-        <div class="section-intro pb-60px">
-          <p>Popular Item in the market</p>
-          <h2>Trending <span class="section-intro__style">Product</span></h2>
-        </div>
-        <div class="row"> 
-          {% for product in products %}
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="card text-center card-product">
-              <div class="card-product__img">
-                <img class="card-img my-card-img" src="{{ product.image.url }}" alt="">
-                <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-search"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
-                </ul>
+         <!-- Start Filter Bar -->
+         <div class="filter-bar d-flex flex-wrap align-items-center">
+            
+            <div class="sorting mr-auto ">
+              <select class="form-control">
+                <option value="1">Show 12</option>
+                <option value="1">Show 12</option>
+                <option value="1">Show 12</option>
+              </select>
+            </div>
+            <div>
+              <form action="{% url 'ecommerce:shop-product' slug %}" method="GET">
+              <div class="input-group filter-bar-search">
+                
+                    <input type="text" name="search" placeholder="Search">
+                    <div class="input-group-append">
+                      <button type="submit"><i class="ti-search"></i></button>
+                    </div>
+                
               </div>
-              <div class="card-body">
-                <p>{{product.category.name}}</p>
-                <h4 class="card-product__title"><a href="single-product.html">{{ product.name }}</a></h4>
-                <p class="card-product__price">${{product.price}}</p>
+            </form>
+            </div>
+          </div>
+          {% if products is None %}
+            {% include "pages/not_found_products.html" %}
+          {% else %}
+            <!-- End Filter Bar -->
+            <div class="section-intro pb-60px">
+              <p>Popular Item in the market</p>
+              <h2>Trending <span class="section-intro__style">Product</span></h2>
+            </div>
+            <div class="row"> 
+              {% for product in products %}
+              <div class="col-md-6 col-lg-4 col-xl-3">
+                <div class="card text-center card-product">
+                  <div class="card-product__img">
+                    <img class="card-img my-card-img" src="{{ product.image.url }}" alt="">
+                    <ul class="card-product__imgOverlay">
+                        <li><button data-toggle="modal" onClick="getImageUrl('{{ product.image.url }}')" data-target="#imageGallery"><i class="ti-search"></i></button></li>
+                    </ul>
+                  </div>
+                  <div class="card-body">
+                    <p>{{product.category.name}}</p>
+                    <h4 class="card-product__title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h4>
+                    <p class="card-product__price">${{product.price}}</p>
+                  </div>
+                </div>
+                
               </div>
+              {% endfor %}
+
+            
             </div>
             
-          </div>
-          {% endfor %}
 
-         
-        </div>
-        
-
-        {% if products.has_other_pages %}
-        <nav aria-label="Page navigation example">
-            <ul class="pagination pg-blue">
-                <li class="page-item  {% if not products.has_previous %} disabled {% endif %}">
-                <a class="page-link" href="{% if products.has_previous %}?page={{ products.previous_page_number }}{% endif %}" tabindex="-1">Previous</a>
-                </li>
-                {% for i in products.paginator.page_range %}
-                <li class="page-item {% if products.number == i %} active {% endif %}">
-                <a class="page-link" href="?page={{ i }}">{{ i }} <span class="sr-only">(current)</span></a>
-                </li>
-                {% endfor %}
-                <li class="page-item {% if not products.has_next %} disabled {% endif %}">
-                <a class="page-link" {% if products.has_next %} href="?page={{ products.next_page_number }}" {% endif %}>Next</a>
-                </li>
-            </ul>
-        </nav>
-        {% endif %}
+            {% if products.has_other_pages %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination pg-blue">
+                    <li class="page-item  {% if not products.has_previous %} disabled {% endif %}">
+                    <a class="page-link" href="{% if products.has_previous %}?page={{ products.previous_page_number }}{% endif %}" tabindex="-1">Previous</a>
+                    </li>
+                    {% for i in products.paginator.page_range %}
+                    <li class="page-item {% if products.number == i %} active {% endif %}">
+                    <a class="page-link" href="?page={{ i }}">{{ i }} <span class="sr-only">(current)</span></a>
+                    </li>
+                    {% endfor %}
+                    <li class="page-item {% if not products.has_next %} disabled {% endif %}">
+                    <a class="page-link" {% if products.has_next %} href="?page={{ products.next_page_number }}" {% endif %}>Next</a>
+                    </li>
+                </ul>
+            </nav>
+            {% endif %}
+          {% endif %}
 
       </div>
     </section>

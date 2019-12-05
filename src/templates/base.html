@@ -40,11 +40,25 @@
     {% include 'items/footer.html' %}
 
 
+    <div class="modal fade" id="imageGallery" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+          <img width="100%" id="gallery" src="" alt=""> 
+          </div>
+        </div>
+      </div>
 
+<script>
+function getImageUrl(src)
+{
+  $("#gallery").attr('src',src)
 
+}
+</script>
+      
   <script src="{% static 'js/jquery.js' %} "></script>
-
   <script src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js' %} "></script>
+ 
   <script src="{% static 'vendors/skrollr.min.js' %} "></script>
   <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js' %} "></script>
   <script src="{% static 'vendors/jquery.ajaxchimp.min.js' %} "></script>
@@ -54,6 +68,7 @@
   
   <script src="{% static 'js/main.js' %} "></script>
 
+ 
 
 </body>
 </html>

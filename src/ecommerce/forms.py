@@ -29,4 +29,20 @@ class ClientForm(forms.ModelForm):
                     attrs={"placeholder":"select country","class": "form-control"}
                 )
             }
-    
+
+
+class ContactForm(forms.Form):
+
+    SUBJECTS = (
+        ('','--Subject--'),
+        ('Request more information','Request more information'),
+        ('Learn more about how to contribute','Learn more about how to contribute'),
+        ('Correction or bug report','Correction or bug report'),
+        ('Other (please specify)','Other (please specify)'),
+    )
+
+
+    name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Name',"class":"form-control"}))
+    email = forms.EmailField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Email',"class":"form-control"}))
+    subject = forms.CharField(max_length=50 ,widget=forms.Select(attrs={'placeholder': 'Subject',"class":"form-control"}, choices=SUBJECTS))
+    message = forms.CharField(widget=forms.Textarea(attrs={"rows":5, "cols":30, 'placeholder': 'Message',"class":"form-control different-control w-100"}))

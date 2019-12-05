@@ -61,14 +61,11 @@
 											  <img class="my-gallery {% if forloop.counter == 1  %} active_img {% endif %}" width="100%" height="100%" src="{{gallery.image.url}}" alt="">
 											</div>
 											
-								
-											
 											{% endfor %}
 											
 								</div>
 							  </div>
-							  <a class="button primary-btn mt-3"   data-toggle="modal" data-target="#exampleModalCenter">call for</a>
-						
+							  <button class="button primary-btn mt-3 btn-block" id="call_for">call for</button>
 					
 						
 					</div>
@@ -188,23 +185,23 @@
 				<div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
 					<div class="single-search-product-wrapper">
 						<div class="single-search-product d-flex">
-							<a href="#"><img src="{{item1.image.url}}" alt=""></a>
+							<a href="{% url 'ecommerce:single-product' item1.slug %}"><img src="{{item1.image.url}}" alt=""></a>
 							<div class="desc">
-								<a href="#" class="title">{{item1.name}}</a>
+								<a href="{% url 'ecommerce:single-product' item1.slug %}" class="title">{{item1.name}}</a>
 								<div class="price">${{item1.price}}</div>
 							</div>
 						</div>
 						<div class="single-search-product d-flex">
-							<a href="#"><img src="{{item2.image.url}}" alt=""></a>
+							<a href="{% url 'ecommerce:single-product' item2.slug %}"><img src="{{item2.image.url}}" alt=""></a>
 							<div class="desc">
-								<a href="#" class="title">{{item2.name}}</a>
+								<a href="{% url 'ecommerce:single-product' item2.slug %}" class="title">{{item2.name}}</a>
 								<div class="price">${{item2.price}}</div>
 							</div>
 						</div>
 						<div class="single-search-product d-flex">
-							<a href="#"><img src="{{item3.image.url}}" alt=""></a>
+							<a href="{% url 'ecommerce:single-product' item3.slug %}"><img src="{{item3.image.url}}" alt=""></a>
 							<div class="desc">
-								<a href="#" class="title">{{item3.name}}</a>
+								<a href="{% url 'ecommerce:single-product' item3.slug %}" class="title">{{item3.name}}</a>
 								<div class="price">${{item3.price}}</div>
 							</div>
 						</div>
@@ -232,16 +229,48 @@ $('.my-gallery').on('click',  function() {
 	$('.img-fluid').attr('src',img_active_src) 
 });
   
-  
+$("#call_for").click(function () {
+$.ajax({
+	url: "{% url 'ecommerce:save_order' product.slug %}",
+	type: 'get',
+	dataType: 'json',
+	beforeSend: function () {
+	$("#exampleModalCenter").modal("show");
+	},
+	success: function (data) {
+	$("#exampleModalCenter .modal-body").html(data.html_form);
+	}
+});
+});
 
 	
 </script>
 
-
-	  <!-- Modal -->
+<div class="modal fade" id="ignismyModal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+			</div>
+				
+			<div class="modal-body">
+					
+				<div class="thank-you-pop">
+					<img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+					<h1>Thank You!</h1>
+					<p>Your submission is received and we will contact you soon</p>
+					<h3 class="cupon-pop">Your Id: <span>12345</span></h3>
+					
+				</div>
+						
+			</div>
+			
+		</div>
+	</div>
+</div>		
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<form action="#/" class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-
+	<form id="js-client-create-form" class="form-contact contact_form " method="post" novalidate="novalidate">
+		{% csrf_token %}
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -251,73 +280,44 @@ $('.my-gallery').on('click',  function() {
 					</button>
 				</div>
 				<div class="modal-body">
-					{% csrf_token %}
-						<div class="row">
-						  <div class="col-lg-5">
-							<div class="form-group ">{{ form.first_name }}
-								<small id="passwordHelp" class="text-danger">
-									{{from.first_name.errors}}
-								</small>   
-							</div>
-							<div class="form-group">{{ form.last_name }}
-									<small id="passwordHelp" class="text-danger">
-										{{from.last_name.errors}}
-									</small> 
-							</div>
-							<div class="form-group">{{ form.email }}
-									<small id="passwordHelp" class="text-danger">
-										{{from.email.errors}}
-									</small> 
-							</div>
-							<div class="form-group">{{ form.phone }}
-								<small id="passwordHelp" class="text-danger">
-									{{from.phone.errors}}
-								</small>
-							</div>
-							<div class="form-group">
-								{{ form.country }}
-							</div>
-							
-						  </div>
-						  <div class="col-lg-7">
-								
-								<!-- <textarea class="form-control different-control w-100" name="message" id="message" cols="30" rows="5" placeholder="Enter Message"></textarea> -->
-								<div class="form-group">{{ form.adress }}
-										<small id="passwordHelp" class="text-danger">
-											{{from.adress.errors}}
-										</small>
-								</div>
-									<div class="form-group">{{ form.city }}
-										<small id="passwordHelp" class="text-danger">
-											{{from.city.errors}}
-										</small>
-									</div>
-									<div class="form-group">{{ form.age }}
-											<small id="passwordHelp" class="text-danger">
-												{{from.age.errors}}
-											</small>
-									</div>
-									<div class="form-group">{{ form.gender }}
-										<small id="passwordHelp" class="text-danger">
-											{{from.age.errors}}
-										</small>
-									</div>
-						  </div>
-						</div>
-						<div class="form-group text-center text-md-right mt-3">
-						</div>
-					  
+					
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="button button--active button-contactForm">Send Message</button>
+					<button type="button" id="button_form" class="button button--active button-contactForm" >Send Message</button>
 
 				</div>
-			</form>
-				</div>
+			
 			</div>
 		</div>
-	  
 
+	</form>
+</div>
+	  
+<script>
+
+$("#button_form").on("click", function () {
+	console.log("hello word")
+	var form = $("#js-client-create-form");
+    $.ajax({
+      url: "{% url 'ecommerce:save_order' product.slug %}",
+      data: form.serialize(),
+      type: "post",
+      dataType: 'json',
+      success: function (data) {
+        if (data.form_is_valid) {
+			$('#exampleModalCenter').modal('toggle');
+			$("#ignismyModal").modal("show");
+        }
+        else {
+          $("#exampleModalCenter .modal-body").html(data.html_form);
+        }
+      }
+    });
+    
+  });
+
+
+</script>
 
 
 	<!--================ end related Product area =================-->  	

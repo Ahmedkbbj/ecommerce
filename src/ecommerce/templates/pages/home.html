@@ -60,8 +60,7 @@
               <div class="card-product__img">
                 <img class="card-img my-card-img" src="{{ product.image.url }}" alt="">
                 <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-search"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
+                    <li><button data-toggle="modal" onClick="getImageUrl('{{ product.image.url }}')" data-target="#imageGallery"><i class="ti-search"></i></button></li>
                 </ul>
               </div>
               <div class="card-body">
@@ -109,13 +108,12 @@
             <div class="card-product__img">
               <img class="img-fluid" src="{{ product.image.url }}" alt="">
               <ul class="card-product__imgOverlay">
-                <li><button><i class="ti-search"></i></button></li>
-                <li><button><i class="ti-heart"></i></button></li>
+                  <li><button data-toggle="modal" onClick="getImageUrl('{{ product.image.url }}')" data-target="#imageGallery"><i class="ti-search"></i></button></li>
               </ul>
             </div>
             <div class="card-body">
               <p>{{ product.category.name }}</p>
-              <h4 class="card-product__title"><a href="single-product.html">{{ product.name }}</a></h4>
+              <h4 class="card-product__title"><a href="{% url 'ecommerce:single-product' product.slug %}">{{ product.name }}</a></h4>
               <p class="card-product__price">${{ product.price }}</p>
             </div>
           </div>
@@ -155,7 +153,8 @@
     
 
   </main>
-    
+  
+
     
   <!--================ Start footer Area  =================-->	
 
