@@ -109,12 +109,9 @@ def contact_us(request):
             send_mail(
             'That’s your subject',
             'That’s your message body',
-            'ahmedkabbaj.developer@gmail.com',
+            'exemple@gmail.com',
             ['ahmed.kab20@gmail.com',],
-            fail_silently=False,
             )
-
-
             
 
     return render(request, "pages/contact_us.html",{"form":form})
