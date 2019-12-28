@@ -4101,4 +4101,8 @@ a {
     max-width: 100%;
     object-fit: cover;
     border-radius: calc(.25rem - 1px);
+    box-shadow: 0 3px 13px 3px rgba(0,0,0,.2);
+    display: flex;
+    border-radius: 11px;
+    overflow: hidden;
 }

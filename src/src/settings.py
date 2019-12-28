@@ -25,7 +25,7 @@ SECRET_KEY = 'ufi7aws72!ulm@(1wp=pe(u_*nzudhd697fozska)%b8ykl=y$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["ahmed0022.pythonanywhere.com"]
 
 
 # Application definition
@@ -129,24 +129,24 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
-]
+STATIC_ROOT = '/home/ahmed0022/ecommerce/src/static'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') # 'data' is my media folder
-MEDIA_URL = '/media/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static/"),
+)
+MEDIA_URL= '/media/'
 
+MEDIA_ROOT= os.path.join(BASE_DIR, "media")
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST:  'localhost'
-EMAIL_PORT: 25
-EMAIL_HOST_USER: ''
-EMAIL_HOST_PASSWORD: ''
-EMAIL_USE_TLS: False
-EMAIL_USE_SSL: False
+# EMAIL_HOST:  'localhost'
+# EMAIL_PORT: 25
+# EMAIL_HOST_USER: ''
+# EMAIL_HOST_PASSWORD: ''
+# EMAIL_USE_TLS: False
+# EMAIL_USE_SSL: False
 
 
