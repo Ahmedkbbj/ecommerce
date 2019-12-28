@@ -29,7 +29,7 @@ def single_product_view(request, slug):
     product = get_object_or_404(Product, slug=slug)
     top_products = list(Product.objects.all())
     len_of_products = 12 if len(top_products) >= 12 else len(top_products)
-    top_products =  pack(list(top_products)) if len(top_products) == 12 else  pack(list(random.sample(top_products, 9) ))
+    top_products =  pack(list(top_products)) if len(top_products) == 12 else  pack(list(random.sample(top_products, len_of_products) ))
     context = {'product':product, "top_products":top_products}
 
     return render(request, "pages/single_product.html", context)
