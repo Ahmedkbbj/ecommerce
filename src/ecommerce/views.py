@@ -23,7 +23,6 @@ def homeview(request):
     best_products = sorted(Product.objects.all(), key=lambda p: p.nb_order, reverse = True)[:8]
     context = {"last_products":last_products ,"best_products":best_products, "featured_products": featured_products}
     context.update({"categorys":categorys})
-    print(context)
     return render(request, "pages/home.html", context)
 
 import random
