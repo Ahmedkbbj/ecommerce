@@ -44,7 +44,7 @@ class Product(models.Model):
     height = models.FloatField(null=True,blank=True)
     depth = models.FloatField(null=True,blank=True)
     weight = models.FloatField(null=True,blank=True)
-    created_at = models.DateField(null=True,blank=True, default=timezone.now())
+    created_at = models.DateField(null=True,blank=True, default=timezone.now)
     
     @property
     def nb_order(self):
