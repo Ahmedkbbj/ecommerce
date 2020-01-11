@@ -1,6 +1,6 @@
 
 {% extends "base.html" %}
-{% load static %}
+{% load static poll_extras %}
 {% block content %}
 
   
@@ -32,13 +32,13 @@
     <!--================ Hero Carousel start =================-->
     <section class="section-margin mt-0">
       <div class="owl-carousel owl-theme hero-carousel">
-        {% for product in last_products %}
+        {% for product in categorys %}
         <div class="hero-carousel__slide">
           <img src="{{ product.image.url }}" alt="" class="img-fluid">
           <a href="{{ product.get_absolute_url }}" class="hero-carousel__slideOverlay">
             <h3>{{ product.name }} </h3>
             <p></p>
-            <p>{{ product.category.name }} <strong style="color:lightgreen">$ {{ product.price }}</strong> </p>
+            <p>{{ product.description|number_word:12}} </p>
           </a>
         </div>
         {% endfor %}
@@ -46,7 +46,7 @@
     </section>
     <!--================ Hero Carousel end =================-->
 
-    <!-- ================ trending product section start ================= -->  
+    <!-- ================ trending product section start 8 products ================= -->  
     <section class="section-margin calc-60px">
       <div class="container">
         <div class="section-intro pb-60px">
@@ -54,7 +54,7 @@
           <h2>Trending <span class="section-intro__style">Product</span></h2>
         </div>
         <div class="row"> 
-          {% for product in best_products %}
+          {% for product in featured_products %}
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
@@ -103,7 +103,7 @@
           <h2>Best <span class="section-intro__style">Sellers</span></h2>
         </div>
         <div class="owl-carousel owl-theme" id="bestSellerCarousel">
-          {% for product in featured_products %}
+          {% for product in best_products %}
           <div class="card text-center card-product">
             <div class="card-product__img">
               <img class="img-fluid" src="{{ product.image.url }}" alt="">

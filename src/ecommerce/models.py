@@ -2,7 +2,7 @@ from django.db import models
 import hashlib 
 from django.urls import reverse
 from django_countries.fields import CountryField
-from datetime import datetime
+from django.utils import timezone
 GENDER = (
         ('',"Sex"),
         ('M',"MAN"),
@@ -20,12 +20,13 @@ class Client(models.Model):
     city = models.CharField(max_length=50)
     age = models.PositiveIntegerField(null=True, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER, null=True, blank=True)
-    created_at = models.DateField(default=datetime.now())
+    created_at = models.DateField(default=timezone.now)
 
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField()
+    image = models.ImageField(null=True, blank=True)
     slug = models.CharField(max_length=50, null=True)
 
     def get_absolute_url(self):
@@ -43,7 +44,7 @@ class Product(models.Model):
     height = models.FloatField(null=True,blank=True)
     depth = models.FloatField(null=True,blank=True)
     weight = models.FloatField(null=True,blank=True)
-    created_at = models.DateField(null=True,blank=True)
+    created_at = models.DateField(null=True,blank=True, default=timezone.now())
     
     @property
     def nb_order(self):
@@ -81,6 +82,10 @@ class Order(models.Model):
 
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    created_at = models.DateField(default=datetime.now)
+    created_at = models.DateField(default=timezone.now)
 
 
+class SocialMedia(models.Model):
+
+    name = models.CharField(max_length=50)
+    image = models.ImageField()

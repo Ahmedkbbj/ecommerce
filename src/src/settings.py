@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ufi7aws72!ulm@(1wp=pe(u_*nzudhd697fozska)%b8ykl=y$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["ahmed0022.pythonanywhere.com"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -129,11 +129,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = '/home/ahmed0022/ecommerce/src/static'
+# STATIC_ROOT = '/home/ahmed0022/ecommerce/src/static'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static/"),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, "static"),
+# )
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
+]
+
 MEDIA_URL= '/media/'
 
 MEDIA_ROOT= os.path.join(BASE_DIR, "media")
