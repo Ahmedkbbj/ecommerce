@@ -17,10 +17,14 @@
                         <div class="single-footer-widget tp_widgets">
                             <h4 class="footer_title">Quick Links</h4>
                             <ul class="list">
-                                <li><a href="/">Home</a></li>
-                                <li><a href="{% url 'ecommerce:shop-product' 'all' %}">Shop</a></li>
-                                <li><a href="#">About us</a></li>
-                                <li><a href="#">Contact</a></li>
+                                <li class="nav-item {% if "home" == current_url_name %}active{% endif %}"><a  href="/">Home</a></li>
+                                <li class="{% if "shop-product" == current_url_name %}active{% endif %}">
+                                    <a href="{% url 'ecommerce:shop-product' 'all' %}" >Shop</a>
+                                </li>
+                                <li class=" {% if "about_us" == current_url_name %}active{% endif %}">
+                                    <a href="{% url 'ecommerce:about_us' %}" >About us</a>
+                                </li>
+                                <li class=" {% if "contact_us" == current_url_name %}active{% endif %}" ><a href="{% url 'ecommerce:contact_us' %}">Contact</a></li>
                             </ul>
                         </div>
                     </div>

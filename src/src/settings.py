@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'ecommerce.context_processors.category_shop',
                 'ecommerce.context_processors.footer',
+                'ecommerce.context_processors.current_url_name',
             ],
 
         'libraries':{
