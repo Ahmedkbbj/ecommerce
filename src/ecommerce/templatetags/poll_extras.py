@@ -10,3 +10,11 @@ def number_word(value, args):
     return text_about
 
 
+@register.filter(name="is_none_img")
+def is_none_img(value):
+    if value:
+        print(value , "this is value ??????????????????????")
+        return value
+    else :
+        return "{% static 'img/default.jpg' %}"
+

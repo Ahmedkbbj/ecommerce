@@ -79,7 +79,22 @@
 
 
     <!-- ================ offer section start ================= --> 
-    <section class="offer" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px">
+    {% if offre %}
+    <section class="offer" style="background: url({{offre.image.url}}) right center no-repeat;" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-5">
+            <div class="offer__content text-center">
+              <h3>{{offre.title}}</h3>
+              <p>{{ offre.descriptions }}</p>
+              <button class="button button--active mt-3 mt-xl-4" id="call_offre">Shop Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% else %}
+       <section class="offer" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px">
       <div class="container">
         <div class="row">
           <div class="col-xl-5">
@@ -93,6 +108,7 @@
         </div>
       </div>
     </section>
+    {% endif %}
     <!-- ================ offer section end ================= --> 
 
     <!-- ================ Best Selling item  carousel ================= --> 
@@ -154,6 +170,100 @@
 
   </main>
   
+
+<div class="modal fade" id="ignismyModal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+			</div>
+				
+			<div class="modal-body">
+					
+				<div class="thank-you-pop">
+					<img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+					<h1>Thank You!</h1>
+					<p>Your submission is received and we will contact you soon</p>
+					<h3 class="cupon-pop">Your Id: <span>12345</span></h3>
+					
+				</div>
+						
+			</div>
+			
+		</div>
+	</div>
+</div>	
+
+
+
+<div class="modal fade" id="exampleModalCenter_for_offre" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<form id="js-client-create-form" class="form-contact contact_form " method="post" novalidate="novalidate">
+		{% csrf_token %}
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">ask for a product</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="button button-contactForm" data-dismiss="modal">Close</button>
+					<button type="button" id="button_form" class="button button--active button-contactForm" >Send Message</button>
+				</div>
+			
+			</div>
+		</div>
+
+	</form>
+</div>
+
+
+<script>
+$("#call_offre").click(function () {
+  console.log("this is click")
+$.ajax({
+	url: "{% url 'ecommerce:save_order_offre' %}",
+	type: 'get',
+	dataType: 'json',
+	beforeSend: function () {
+	$("#exampleModalCenter_for_offre").modal("show");
+	},
+	success: function (data) {
+	$("#exampleModalCenter_for_offre .modal-body").html(data.html_form);
+	}
+});
+});
+
+
+
+
+ $("#button_form").on("click", function () {
+	console.log("hello word")
+	var form = $("#js-client-create-form");
+    $.ajax({
+      url: "{% url 'ecommerce:save_order_offre' %}",
+      data: form.serialize(),
+      type: "post",
+      dataType: 'json',
+      success: function (data) {
+        if (data.form_is_valid) {
+			$('#exampleModalCenter_for_offre').modal('toggle');
+			$("#ignismyModal").modal("show");
+        }
+        else {
+          $("#exampleModalCenter_for_offre .modal-body").html(data.html_form);
+        }
+      }
+    });
+    
+  }); 
+</script>
+
+
 
     
   <!--================ Start footer Area  =================-->	

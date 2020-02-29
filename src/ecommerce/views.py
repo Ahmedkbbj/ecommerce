@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Product, Category, Order
+from .models import Product, Category, Order, Offer
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404
@@ -20,8 +20,10 @@ def homeview(request):
 
     categorys = Category.objects.all()
 
+    offre = Offer.objects.last()
+
     best_products = sorted(Product.objects.all(), key=lambda p: p.nb_order, reverse = True)[:8]
-    context = {"last_products":last_products ,"best_products":best_products, "featured_products": featured_products}
+    context = {"last_products":last_products ,"best_products":best_products, "featured_products": featured_products, "offre":offre}
     context.update({"categorys":categorys})
     return render(request, "pages/home.html", context)
 
@@ -94,6 +96,33 @@ class save_order(View):
         
         data["html_form"] = render_to_string('pages/client_form.html', context, request=request)
         return JsonResponse(data)
+
+
+class save_order_offre(View):
+
+    def get(self, request, *args, **kwargs):
+        form = ClientForm()
+        data = {}
+        context = {"form":form}
+        html_form = render_to_string('pages/client_form.html', context, request=request)
+        return JsonResponse({'html_form': html_form})             
+
+    def post(self, request, *args, **kwargs):
+        form = ClientForm(request.POST or None)
+        data = {}
+        context = {"form":form}
+        if form.is_valid():
+            client = form.save()
+            Order.objects.create(client=client, product=None, is_offre=True)
+            data["form_is_valid"] = True
+        else:
+            data["form_is_valid"] = False
+            
+        
+        data["html_form"] = render_to_string('pages/client_form.html', context, request=request)
+        return JsonResponse(data)
+
+
 
 
 def about_us(request):
