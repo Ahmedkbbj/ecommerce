@@ -93,3 +93,11 @@ class SocialMedia(models.Model):
 
     def __str__(self):
         return self.name 
+
+
+class Offer(models.Model):
+    
+    title = models.CharField(max_length=50)
+    descriptions = models.TextField()
+    image = models.ImageField()
+    
