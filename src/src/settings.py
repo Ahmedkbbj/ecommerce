@@ -25,8 +25,8 @@ SECRET_KEY = 'ufi7aws72!ulm@(1wp=pe(u_*nzudhd697fozska)%b8ykl=y$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
-# ALLOWED_HOSTS = ["ahmed0022.pythonanywhere.com"]
+# ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["ahmed0022.pythonanywhere.com"]
 
 
 # Application definition
@@ -85,23 +85,23 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'ahmed0022$default',
-#         'USER': 'ahmed0022',
-#         'PASSWORD': '12345aze',
-#         'HOST': 'ahmed0022.mysql.pythonanywhere-services.com',
-#         'PORT': '3306',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ahmed0022$default',
+        'USER': 'ahmed0022',
+        'PASSWORD': '12345aze',
+        'HOST': 'ahmed0022.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
